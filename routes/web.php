@@ -29,6 +29,9 @@ Route::get('/welcome',function(){
 });
 //Route::get('/posts','PostConroller@getPost');
 Route::get('/posts', 'PostController@getPosts');
+
 Route::get('/', 'PostController@getPosts');
 
 Route::get('/posts/{id}','PostController@getFullPost');
+
+Route::post('/posts/delete','PostController@deletePost');

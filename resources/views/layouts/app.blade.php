@@ -76,8 +76,33 @@
 
         @yield('content')
     </div>
-
+   
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>
+<script>
+   jQuery(document).ready(function(){
+            jQuery('#deleteButton').click(function(e){
+               e.preventDefault();
+               jQuery.ajaxSetup({
+                  headers: {
+                      'X-CSRF-TOKEN': jQuery('meta[name="_token"]').attr('content')
+                  }
+              });
+               jQuery.ajax({
+                  url: "{{ url('/posts/delete') }}",
+                  method: 'post',
+                  data: {
+                     id: jQuery('#post_id').val(),
+                     _token: '{{csrf_token()}}'
+                  },
+                  success: function(result){
+                     console.log(result);
+                     document.location.href = "/posts";
+                  }});
+               });
+            });
+   </script>
+
+

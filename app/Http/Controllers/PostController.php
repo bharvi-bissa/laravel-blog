@@ -24,7 +24,8 @@ class PostController extends Controller
 
         DB::table('posts')->insert($data);
         echo "<script>alert('Post inserted !')</script>";
-        return view('add');
+        //return view('add');
+        return redirect('/posts');
     }
 
     function getPosts(){
@@ -37,9 +38,22 @@ class PostController extends Controller
 
     function getFullPost($id){
         $postid=$id;
+        //get user id if logged in for editing purpose
+        $auth_id= $id = Auth::id();
         $singlePost = DB::table('posts')->where('id', $postid)->first();
-        //print_r($singlePost);
-        return view('singlePost',compact('singlePost'));
+        $author_id = $singlePost->author_id;
+        $authorQuery = DB::table('users')->select('name')->where('id', $author_id)->get();
+        $author=$authorQuery[0]->name;
+        return view('singlePost',compact('singlePost','auth_id','author')); 
+    }
+
+    function deletePost(Request $req){
+        $postId= $req->id;
+        $confirm = DB::table('posts')->where('id', $postId)->delete();
+        if($confirm)
+            return response()->json(['success'=>'Data is successfully added']);
+        else
+            return response()->json(['error'=>'Something Went Wrong']);
     }
         
 }
