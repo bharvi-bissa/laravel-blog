@@ -6,7 +6,15 @@
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
                 <div class="panel-heading">Login</div>
+                <div style="text-align: center;">
+                    <button class="loginBtn loginBtn--facebook">
+                      Login with Facebook
+                    </button>
 
+                    <button class="loginBtn loginBtn--google" id="google-signInBtn">
+                      Login with Google
+                    </button>
+                </div>
                 <div class="panel-body">
                     <form class="form-horizontal" method="POST" action="{{ route('login') }}">
                         {{ csrf_field() }}

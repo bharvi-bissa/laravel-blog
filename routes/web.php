@@ -27,7 +27,7 @@ Route::post('/posts/add','PostController@addPost')->middleware('auth');
 Route::get('/welcome',function(){
     return view('welcome');
 });
-//Route::get('/posts','PostConroller@getPost');
+
 Route::get('/posts', 'PostController@getPosts');
 
 Route::get('/', 'PostController@getPosts');
@@ -35,3 +35,10 @@ Route::get('/', 'PostController@getPosts');
 Route::get('/posts/{id}','PostController@getFullPost');
 
 Route::post('/posts/delete','PostController@deletePost');
+
+Route::get('/posts/edit/{id}','PostController@showEditPage')->middleware('auth');
+
+Route::post('/posts/edit','PostController@editPost')->middleware('auth');
+
+Route::get('login/google', 'Auth\LoginController@redirectToProvider');
+Route::get('login/google/callback', 'Auth\LoginController@handleProviderCallback');

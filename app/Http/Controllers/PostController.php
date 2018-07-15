@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\posts;
 //use DB;
 class PostController extends Controller
 {
@@ -54,6 +55,35 @@ class PostController extends Controller
             return response()->json(['success'=>'Data is successfully added']);
         else
             return response()->json(['error'=>'Something Went Wrong']);
+    }
+
+    function showEditPage(Request $req){
+        $postId = $req->id;
+        $sendPost = DB::table('posts')->where('id',$postId)->get();
+        return view('editPost',compact('sendPost'));
+    }
+
+    function editPost(Request $req){
+        /*Always see the response array*/
+          
+         $postId = $req["id"];
+         $title = $req["title"];
+         $postDesc = $req["desc"];
+         $authorId = $req["author_id"];
+        /*$db = DB::table('posts')
+            ->update(
+                    [
+                        'title' => $title,
+                        'description' => $postDesc
+                    ]
+                )
+            ->where('id', $postId);*/
+        
+        $db=posts::where('id', $postId)->update(array('title' => $title,'description' => $postDesc));
+        if($db)
+            return response()->json(['success'=>'Data is successfully edited']);
+        else
+           return response()->json(['error'=>'Something Went Wrong']);
     }
         
 }

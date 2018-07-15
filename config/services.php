@@ -35,4 +35,10 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'google' => [
+    'client_id' => '208338943214-v81qk7rl4f0eutgir14cia9l8uepbejq.apps.googleusercontent.com',         // Your GitHub Client ID
+    'client_secret' => 'XAYLmZ4CUvlM2bnIP9AOSXKz', // Your GitHub Client Secret
+    'redirect' => 'http://localhost:8000/login/google/callback',
+    ],
+
 ];
